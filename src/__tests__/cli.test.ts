@@ -11,28 +11,28 @@ const options = {
 
 const cmd = (command: string[]) => coffee.fork('src/index.ts', command, options);
 
-test('can run', async () => {
-  await cmd(['connect'])
-    .expect('stdout', /^connecting.../)
-    .expect('stderr', '')
-    .expect('code', 0)
-    .end();
-});
-
-test('can get current working directory', async () => {
-  await cmd(['pwd'])
-    .expect('stdout', path.resolve(__dirname, '..') + '\n')
-    .end();
-});
-
 test('write config', async () => {
   await cmd(['config', '--write=true'])
-    .expect('stdout', /version: '1.0.0'/)
+    .expect('stdout', /\nwrote the config file/)
     .end();
 });
 
 test('output config', async () => {
   await cmd(['config'])
     .expect('stdout', /version: '1.0.0'/)
+    .end();
+});
+
+test('can get current working directory', async () => {
+  await cmd(['pwd'])
+    .expect('stdout', new RegExp(path.resolve(__dirname, '..') + '\n' + path.resolve(__dirname, '../..') + '\n'))
+    .end();
+});
+
+test('can run', async () => {
+  await cmd(['connect'])
+    .expect('stdout', /^config file loaded\nconnecting.../)
+    .expect('stderr', '')
+    .expect('code', 0)
     .end();
 });
