@@ -9,25 +9,18 @@ const options = {
   cwd: path.resolve(__dirname, '../../'),
 };
 
-test('目标 config 文件不存在的情况', async () => {
+const cmd = (command: string[]) => coffee.fork('src/index.ts', command, options);
+
+test('can run', async () => {
   await coffee
-    .fork('src/index.ts', ['switch', '--cluster=hello', '--namespace=world'], options)
-    .expect('stdout', /^switching to --cluster=hello --namespace=world.../)
-    .expect('stderr', /^没有找到目标文件： .+hello[\/\\]config\n/)
-    .expect('code', 1)
+    .fork('src/index.ts', ['export'], options)
+    .expect('stdout', /^exporting.../)
+    .expect('code', 0)
     .end();
 });
 
-test('在当前上下文只切换 namespace', async () => {
-  await coffee
-    .fork('src/index.ts', ['switch', '--namespace=world'], options)
-    .expect('stdout', /^switching to --cluster= --namespace=world.../)
-    .end();
-});
-
-test('可以省略 switch 命令', async () => {
-  await coffee
-    .fork('src/index.ts', ['s', '--namespace=world'], options)
-    .expect('stdout', /^switching to --cluster= --namespace=world.../)
+test('can get current working directory', async () => {
+  await cmd(['pwd'])
+    .expect('stdout', path.resolve(__dirname, '..') + '\n')
     .end();
 });
