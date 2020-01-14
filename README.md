@@ -26,3 +26,21 @@ mongo-csv config --write=true
 mongo-csv export
 ls # your csv files there
 ```
+
+## Why
+
+There are already some command line tools for that, why reinvent the wheel?
+
+I found it's hard to install the other client tools, especially on some `alpine` containers. But it's easy to run
+`npm instal` on
+those
+containers which installed `nodejs` and especially for those `nodejs` containers.
+
+There is a similar one `https://github.com/rouanw/mongo-csv` and is almost what I need but it's not that easy to
+configure the mongodb connection uri. I mean I just want to configure a simple connection string. But all those
+tools in the world need to configure `port`, `username`, `password` separately, I hate them.
+
+- **Roto 3T**: Can't configure the replica set directly.
+- **Mongo Monkey**: need to configure `port` separately and can't configure the replicaset either: https://github.com/mbahoshy/mongo-monkey/issues/6
+
+So I come to this step to write a tool by myself.
