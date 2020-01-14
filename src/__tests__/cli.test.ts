@@ -12,8 +12,7 @@ const options = {
 const cmd = (command: string[]) => coffee.fork('src/index.ts', command, options);
 
 test('can run', async () => {
-  await coffee
-    .fork('src/index.ts', ['export'], options)
+  await cmd(['export'])
     .expect('stdout', /^exporting.../)
     .expect('code', 0)
     .end();
@@ -22,5 +21,11 @@ test('can run', async () => {
 test('can get current working directory', async () => {
   await cmd(['pwd'])
     .expect('stdout', path.resolve(__dirname, '..') + '\n')
+    .end();
+});
+
+test('output config', async () => {
+  await cmd(['config'])
+    .expect('stdout', "{ version: '1.0.0' }" + '\n')
     .end();
 });

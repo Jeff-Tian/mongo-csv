@@ -15,6 +15,15 @@ require('yargs')
     },
   )
   .command(
+    ['config'],
+    'output the current config',
+    (yargs: Argv) => yargs,
+    (args: any) => {
+      const config = require('./config.json');
+      console.log(config);
+    },
+  )
+  .command(
     ['pwd'],
     'get the working directory of this tool',
     (yargs: Argv) => yargs,
