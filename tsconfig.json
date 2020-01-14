@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "declaration": true,
+    "outDir": "./lib",
+    "strict": true,
+    "experimentalDecorators": true,
+    "typeRoots": ["./node_modules/@types", "./typings/*"],
+    "esModuleInterop": true
+  },
+  "include": ["src", "typings"],
+  "exclude": ["node_modules", "**/__tests__/*"]
+}
