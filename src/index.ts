@@ -5,6 +5,7 @@ import { Argv } from 'yargs';
 
 import fs from 'fs';
 import path from 'path';
+import { exportCollection } from './exportCollection';
 
 let config: any = null;
 const configFilePath = path.join(process.cwd(), 'config.json');
@@ -24,6 +25,12 @@ const connect = async () => {
   console.log('collections = ', collections);
 };
 
+async function close() {
+  if (client && client.isConnected) {
+    await client.close();
+  }
+}
+
 const run = () =>
   require('yargs')
     .usage('Usage: mongocsv')
@@ -35,9 +42,7 @@ const run = () =>
       (args: any) => {
         (async () => {
           await connect();
-          if (client && client.isConnected) {
-            await client.close();
-          }
+          await close();
         })().then(() => {
           console.log('done with connect command');
         });
@@ -50,9 +55,16 @@ const run = () =>
       (args: any) => {
         (async () => {
           await connect();
-        })().then(() => {
-          console.log('done with export command');
-        });
+        })()
+          .then(() => {
+            console.log('will export these collections: ', config.mongo.collections);
+            config.mongo.collections.forEach(exportCollection(db!));
+
+            return close();
+          })
+          .then(() => {
+            console.log('done with export command');
+          });
       },
     )
     .command(
@@ -66,7 +78,7 @@ const run = () =>
       (args: any) => {
         console.log(config);
 
-        if (args.write === 'true') {
+        if (args.write === 'true' && !fs.existsSync('./config.json')) {
           fs.writeFileSync('./config.json', fs.readFileSync(path.join(__dirname, './example.json')));
           console.log('wrote the config file');
         }

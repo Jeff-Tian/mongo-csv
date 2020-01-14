@@ -3,3 +3,10 @@ node_modules
 lib
 src/config.json
 config.json
+activated-users-by-month.json
+active-users-by-day.json
+active-users-by-month.json
+course-details-by-month.json
+course-duration-by-month.json
+industry-details-by-month.json
+total-users-by-month.json
