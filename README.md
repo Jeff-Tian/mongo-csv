@@ -10,17 +10,7 @@
 
 ## Prerequisites
 
-- `kubectl` installed
-- `k8s-config` folder in home directory, for example:
-
-```pre
-~
- |-- k8s-config
-       |-- hangzhou
-              |-- config
-       |-- beijing
-              |-- config
-```
+- `node` and `npm` installed
 
 ## Installation
 
@@ -28,17 +18,11 @@
 npm install mongo-csv --global
 ```
 
-## Usage
+## Typical Usage
 
 ```shell
-# full usage:
-mongo-csv switch --cluster=hangzhou --namespace=test
-
-# switch namespace only without change cluster:
-mongo-csv s --namespace=stage
+mongo-csv config --write=true
+# change your config (mongodb connection uri, etc)
+mongo-csv export
+ls # your csv files there
 ```
-
-## How
-
-- move the related `config` file into `~/.kube`
-- execute `kubectl config set-context $(kubectl config current-context) --namespace=<namespace>`
