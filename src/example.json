@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "mongo": {
-    "uri": "mongodb://localhost:27017",
+    "uri": "mongodb://localhost:27017/test",
     "collections": [
       "activated-users-by-month",
       "active-users-by-day",

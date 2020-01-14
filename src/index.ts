@@ -3,6 +3,8 @@
 import { Db, MongoClient } from 'mongodb';
 import { Argv } from 'yargs';
 
+import * as fs from 'fs';
+import * as path from 'path';
 import config from './config.json';
 
 let client: MongoClient | null = null;
@@ -54,9 +56,18 @@ require('yargs')
   .command(
     ['config'],
     'output the current config',
-    (yargs: Argv) => yargs,
+    (yargs: Argv) =>
+      yargs.options('write', {
+        default: 'config.json',
+        describe: 'write a placeholder config file to' + ' current directory',
+      }),
     (args: any) => {
       console.log(config);
+
+      if (args.write === 'true') {
+        fs.writeFileSync('./config.json', fs.readFileSync(path.join(__dirname, './example.json')));
+        console.log('wrote the config file');
+      }
     },
   )
   .command(

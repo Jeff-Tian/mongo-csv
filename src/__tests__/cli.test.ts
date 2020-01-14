@@ -25,6 +25,12 @@ test('can get current working directory', async () => {
     .end();
 });
 
+test('write config', async () => {
+  await cmd(['config', '--write=true'])
+    .expect('stdout', /version: '1.0.0'/)
+    .end();
+});
+
 test('output config', async () => {
   await cmd(['config'])
     .expect('stdout', /version: '1.0.0'/)
