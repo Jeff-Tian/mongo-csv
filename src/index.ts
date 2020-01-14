@@ -107,5 +107,7 @@ if (fs.existsSync(configFilePath)) {
 } else {
   console.error('no config file located, please run `mongo-csv config --write=true` to generate one');
 
+  // To make the example.json be copied to lib folder
+  import('./example.json');
   run();
 }
