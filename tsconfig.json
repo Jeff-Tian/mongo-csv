@@ -8,7 +8,12 @@
     "experimentalDecorators": true,
     "typeRoots": ["./node_modules/@types", "./typings/*"],
     "esModuleInterop": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "inlineSourceMap": true,
+    "importHelpers": true,
+    "noImplicitAny": false
   },
   "include": ["src", "typings"],
   "exclude": ["node_modules", "**/__tests__/*"]

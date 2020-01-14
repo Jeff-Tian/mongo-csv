@@ -10,3 +10,4 @@ course-details-by-month.json
 course-duration-by-month.json
 industry-details-by-month.json
 total-users-by-month.json
+*.csv

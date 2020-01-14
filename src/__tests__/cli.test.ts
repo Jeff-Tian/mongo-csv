@@ -13,7 +13,7 @@ const cmd = (command: string[]) => coffee.fork('src/index.ts', command, options)
 
 test('write config', async () => {
   await cmd(['config', '--write=true'])
-    .expect('stdout', /\nwrote the config file/)
+    .expect('stdout', /\n(wrote the config file|config file already exists, skipped writing)/)
     .end();
 });
 

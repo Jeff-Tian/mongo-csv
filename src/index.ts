@@ -81,6 +81,8 @@ const run = () =>
         if (args.write === 'true' && !fs.existsSync('./config.json')) {
           fs.writeFileSync('./config.json', fs.readFileSync(path.join(__dirname, './example.json')));
           console.log('wrote the config file');
+        } else {
+          console.log('config file already exists, skipped writing');
         }
       },
     )

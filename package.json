@@ -38,6 +38,7 @@
   },
   "homepage": "https://github.com/Jeff-Tian/mongo-csv#readme",
   "dependencies": {
+    "jsonexport": "^2.4.1",
     "mongodb": "^3.4.1",
     "rimraf": "^2.6.3",
     "shelljs": "^0.8.3",
