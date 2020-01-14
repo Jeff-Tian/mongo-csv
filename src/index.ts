@@ -1,6 +1,9 @@
 #! /usr/bin/env node
 
 import { Argv } from 'yargs';
+import { MongoClient } from 'mongodb';
+
+const config = require('./config.json');
 
 // tslint:disable-next-line
 require('yargs')
@@ -11,7 +14,9 @@ require('yargs')
     'exports collections to csv files',
     (yargs: Argv) => yargs,
     (args: any) => {
-      console.log('exporting...');
+      console.log('connecting...');
+      const client = new MongoClient(config.mongo.uri);
+      console.log('client = ', client);
     },
   )
   .command(
@@ -19,7 +24,6 @@ require('yargs')
     'output the current config',
     (yargs: Argv) => yargs,
     (args: any) => {
-      const config = require('./config.json');
       console.log(config);
     },
   )
