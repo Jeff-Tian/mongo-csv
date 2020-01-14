@@ -6,7 +6,7 @@ import { Argv } from 'yargs';
 import config from './config.json';
 
 let client: MongoClient | null = null;
-const db: Db | null = null;
+let db: Db | null = null;
 
 const connect = async () => {
   console.log('connecting...');
@@ -14,6 +14,10 @@ const connect = async () => {
   console.log('client = ', client);
   await client.connect();
   console.log('connected.');
+  db = client.db();
+  console.log('db = ', db);
+  const collections = await db.collections();
+  console.log('collections = ', collections);
 };
 
 // tslint:disable-next-line
