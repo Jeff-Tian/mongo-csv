@@ -7,6 +7,7 @@ import fs from 'fs';
 import path from 'path';
 import { exportCollection } from './exportCollection';
 import { getKubernetesCpCommands } from './helpers/kubernetes';
+import os from 'os';
 
 let config: any = null;
 const configFilePath = path.join(process.cwd(), 'config.json');
@@ -67,8 +68,8 @@ const run = () =>
             console.log(
               `If you had run this command inside a kubernetes pod, now you can run the following command to copy these csv files into your local machine.\n${getKubernetesCpCommands(
                 config.mongo.collections,
-                'k8s-hangzhou',
                 'prod-g3',
+                os.hostname(),
               )}/`,
             );
           });
