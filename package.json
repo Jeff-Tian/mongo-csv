@@ -1,5 +1,8 @@
 {
-  "name": "mongocsv",
+  "name": "@jeff-tian/mongo-csv",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.0.0-development",
   "description": "yet another tool that exports mongodb collections to csv files",
   "main": "lib/index.js",
