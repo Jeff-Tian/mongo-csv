@@ -10,6 +10,7 @@ export const exportCollection = (db: Db) => async (collection: string) => {
     documents.push(document);
   }
 
-  fs.writeFileSync(`${collection}.json`, documents.join(', \n'));
-  fs.writeFileSync(`${collection}.csv`, await parse(documents));
+  let path = `${collection}.csv`;
+  fs.writeFileSync(path, await parse(documents));
+  console.log(`wrote ${path}`);
 };

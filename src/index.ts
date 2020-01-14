@@ -58,10 +58,9 @@ const run = () =>
         })()
           .then(() => {
             console.log('will export these collections: ', config.mongo.collections);
-            config.mongo.collections.forEach(exportCollection(db!));
-
-            return close();
+            return Promise.all(config.mongo.collections.map(exportCollection(db!)));
           })
+          .then(close)
           .then(() => {
             console.log('done with export command');
           });
