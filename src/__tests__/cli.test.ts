@@ -12,7 +12,7 @@ const options = {
 const cmd = (command: string[]) => coffee.fork('src/index.ts', command, options);
 
 test('can run', async () => {
-  await cmd(['export'])
+  await cmd(['connect'])
     .expect('stdout', /^connecting.../)
     .expect('stderr', '')
     .expect('code', 0)
@@ -27,7 +27,10 @@ test('can get current working directory', async () => {
 
 test('output config', async () => {
   await cmd(['config'])
-    .expect('stdout', `{ version: '1.0.0',\n  mongo: { uri: 'mongodb://localhost:27017' } }
-`)
+    .expect(
+      'stdout',
+      `{ version: '1.0.0',\n  mongo: { uri: 'mongodb://localhost:27017' } }
+`,
+    )
     .end();
 });
