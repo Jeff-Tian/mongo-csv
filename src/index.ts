@@ -6,7 +6,7 @@ import { Argv } from 'yargs';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
-import { exportCollection } from './exportCollection';
+import { exportCollection, ICollectionConfig } from './exportCollection';
 import { getKubernetesCpCommands } from './helpers/kubernetes';
 
 let config: any = null;
@@ -67,8 +67,9 @@ const run = () =>
             console.log('done with export command');
             console.log(
               `If you had run this command inside a kubernetes pod, now you can run the following command to copy these csv files into your local machine.\n${getKubernetesCpCommands(
-                config.mongo.collections,
-                'prod-g3',
+                config.mongo.collections.map((c: string | ICollectionConfig) =>
+                  typeof c === 'string' ? c : c.collection,
+                ),
                 os.hostname(),
               )}/`,
             );

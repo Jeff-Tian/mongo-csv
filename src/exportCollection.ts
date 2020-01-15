@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import { Db } from 'mongodb';
 import { parse } from './parse';
 
-interface ICollectionConfig {
+export interface ICollectionConfig {
   collection: string;
   exportUsing: {
     method: string;
