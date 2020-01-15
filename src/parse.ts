@@ -6,7 +6,7 @@ export const parse = async (json: any[]) => {
       if (err) {
         reject(err);
       } else {
-        resolve(csv);
+        resolve('\ufeff' + csv);
       }
     });
   });

@@ -2,8 +2,29 @@ import * as fs from 'fs';
 import { Db } from 'mongodb';
 import { parse } from './parse';
 
-export const exportCollection = (db: Db) => async (collection: string) => {
-  const cursor = db.collection(collection).find({});
+interface CollectionConfig {
+  collection: string;
+  exportUsing: {
+    method: string;
+    query: any;
+  };
+}
+
+export const exportCollection = (db: Db) => async (collection: string | CollectionConfig) => {
+  let col: string,
+    method: string = 'find',
+    query: any = {};
+
+  if (typeof collection === 'string') {
+    col = collection;
+    method = 'find';
+  } else {
+    col = collection.collection;
+    method = collection.exportUsing.method;
+    query = collection.exportUsing.query;
+  }
+
+  const cursor = db.collection(col)[method](query);
   const documents: any[] = [];
   while (await cursor.hasNext()) {
     const document = await cursor.next();
