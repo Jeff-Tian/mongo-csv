@@ -21,9 +21,12 @@ test('parser', async () => {
   ];
 
   const res = await parse(contacts);
-  expect(res).toEqual(`name,lastname
+  expect(res).toEqual(
+    '\ufeff' +
+      `name,lastname
 Bob,Smith
 James,David
 Robert,Miller
-David,Martin`);
+David,Martin`,
+  );
 });
