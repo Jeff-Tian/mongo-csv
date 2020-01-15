@@ -4,10 +4,10 @@ import { Db, MongoClient } from 'mongodb';
 import { Argv } from 'yargs';
 
 import fs from 'fs';
+import os from 'os';
 import path from 'path';
 import { exportCollection } from './exportCollection';
 import { getKubernetesCpCommands } from './helpers/kubernetes';
-import os from 'os';
 
 let config: any = null;
 const configFilePath = path.join(process.cwd(), 'config.json');

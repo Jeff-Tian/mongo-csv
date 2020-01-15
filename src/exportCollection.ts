@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import { Db } from 'mongodb';
 import { parse } from './parse';
 
-interface CollectionConfig {
+interface ICollectionConfig {
   collection: string;
   exportUsing: {
     method: string;
@@ -10,10 +10,10 @@ interface CollectionConfig {
   };
 }
 
-export const exportCollection = (db: Db) => async (collection: string | CollectionConfig) => {
-  let col: string,
-    method: string = 'find',
-    query: any = {};
+export const exportCollection = (db: Db) => async (collection: string | ICollectionConfig) => {
+  let col: string;
+  let method: string;
+  let query: any = {};
 
   if (typeof collection === 'string') {
     col = collection;
@@ -31,7 +31,7 @@ export const exportCollection = (db: Db) => async (collection: string | Collecti
     documents.push(document);
   }
 
-  let path = `${collection}.csv`;
+  const path = `${collection}.csv`;
   fs.writeFileSync(path, await parse(documents));
   console.log(`wrote ${path}`);
 };
