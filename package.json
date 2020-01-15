@@ -19,7 +19,7 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
-    "postinstall": "echo 'Thanks for using k8ss!'",
+    "postinstall": "echo 'Thanks for using @jeff-tian/mongo-csv!'",
     "semantic-release": "semantic-release"
   },
   "repository": {
